@@ -1,16 +1,9 @@
-# Dependências do Node.js
+# Conteúdo local
 node_modules/
-
-# Diretório de compilação
 dist/
-
-# Logs
 logs/
 *.log
 
-# Configurações do editor
-.vscode/
-
-# Arquivos temporários
-*.tmp
-*.lock
+# Conteúdo remoto
+.DS_Store
+Thumbs.db
