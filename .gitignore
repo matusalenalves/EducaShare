@@ -1,0 +1,16 @@
+# Dependências do Node.js
+node_modules/
+
+# Diretório de compilação
+dist/
+
+# Logs
+logs/
+*.log
+
+# Configurações do editor
+.vscode/
+
+# Arquivos temporários
+*.tmp
+*.lock
