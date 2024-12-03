@@ -5,6 +5,7 @@ import createTransmissionRoutes from "./routes/transmissionRoutes";
 import { Transmission } from "./models/transmission";
 import { registerSocketHandlers } from "./utils/socketHandlers";
 import { logEvent } from "./utils/logger";
+import serverRoutes from "./routes/serverRoutes";
 
 const app = express();
 const server = http.createServer(app);
@@ -29,6 +30,8 @@ app.use((req, res, next) => {
   logEvent(`Requisição: ${req.method} ${req.url}`);
   next();
 });
+
+app.use("/api/server", serverRoutes);
 
 // Registra os eventos do Socket.IO
 registerSocketHandlers(io, transmission);

@@ -13,10 +13,13 @@ const createTransmissionRoutes = (transmission: Transmission) => {
         return res.status(400).json({ error: "A transmissão já está ativa." });
       }
       transmission.isActive = true;
-      res.status(200).json({ code: transmission.code });
+      res.status(200).json({
+        message: "Transmissão iniciada com sucesso.",
+        code: transmission.code,
+      });
     } catch (error) {
-      res.status(500).json({ error: "Erro ao iniciar a transmissão." });
       console.error("Erro no endpoint /start:", error);
+      res.status(500).json({ error: "Erro ao iniciar a transmissão." });
     }
   });
 
@@ -28,11 +31,23 @@ const createTransmissionRoutes = (transmission: Transmission) => {
       if (!transmission.isActive) {
         return res.status(400).json({ error: "Nenhuma transmissão está ativa." });
       }
-      transmission.reset();
-      res.status(200).json({ message: "Transmissão encerrada." });
+      transmission.isActive = false;
+      res.status(200).json({ message: "Transmissão encerrada com sucesso." });
     } catch (error) {
-      res.status(500).json({ error: "Erro ao encerrar a transmissão." });
       console.error("Erro no endpoint /end:", error);
+      res.status(500).json({ error: "Erro ao encerrar a transmissão." });
+    }
+  });
+
+  /**
+   * Retorna o código da transmissão.
+   */
+  router.get("/code", (req: Request, res: Response) => {
+    try {
+      res.status(200).json({ code: transmission.code });
+    } catch (error) {
+      console.error("Erro no endpoint /code:", error);
+      res.status(500).json({ error: "Erro ao obter o código da transmissão." });
     }
   });
 
@@ -43,8 +58,8 @@ const createTransmissionRoutes = (transmission: Transmission) => {
     try {
       res.status(200).json({ students: transmission.students });
     } catch (error) {
-      res.status(500).json({ error: "Erro ao listar alunos conectados." });
       console.error("Erro no endpoint /students:", error);
+      res.status(500).json({ error: "Erro ao listar alunos conectados." });
     }
   });
 
